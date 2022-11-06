@@ -19,11 +19,11 @@ public class SpriteSheet {
         this.size = (this.content.width / this.sprite.width) * (this.content.height / this.sprite.height);
     }
     
-    public void drawSprite(int index, float x, float y, float scale) { // TODO: fix indexing issues
+    public void drawSprite(int index, float x, float y, float scale) {
         if (index < this.size) {
             int spriteX = (index % (this.content.width / this.sprite.width)) * this.sprite.width;
             int spriteY = (index / (this.content.height / this.sprite.height)) * this.sprite.height;
-            image(this.content, x, y, this.sprite.width * scale, this.sprite.height * scale, spriteX, spriteY, this.sprite.width, this.sprite.height);
+            image(this.content, x, y, this.sprite.width * scale, this.sprite.height * scale, spriteX, spriteY, spriteX + this.sprite.width, spriteY + this.sprite.height);
         } else {
             println("Index is greater than size.");
         }
