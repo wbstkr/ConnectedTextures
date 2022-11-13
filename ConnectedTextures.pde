@@ -1,3 +1,5 @@
+import wbstkr.util.*;
+
 public final int TILESIZE = 30;
 
 public SpriteSheet tile;
@@ -9,7 +11,7 @@ public boolean pmousePressed;
 public void setup() {
     size(600, 600);
     
-    tile = new SpriteSheet("tile.png", 16, 16);
+    tile = new SpriteSheet(this, "tile.png", 16, 16);
     
     rowSize = width / TILESIZE;
     grid = new int[rowSize * height / TILESIZE];
@@ -46,21 +48,35 @@ public int pointToGrid(float x, float y) {
 public void addTile(int index) {
     if (grid[index] == -1) {
         grid[index] = 0;
-        if (!(index >= grid.length - rowSize) && grid[index + rowSize] > -1) {
+        if (!(index >= grid.length - rowSize) && grid[index + rowSize] > - 1) {
             grid[index + rowSize] += 0b0001;
             grid[index] += 0b0100;
         }
-        if (!(index % rowSize == 0) && grid[index - 1] > -1) {
+        if (!(index % rowSize == 0) && grid[index - 1] > - 1) {
             grid[index - 1] += 0b0010;
             grid[index] += 0b1000;
         }
-        if (!(index < rowSize) && grid[index - rowSize] > -1) {
+        if (!(index < rowSize) && grid[index - rowSize] > - 1) {
             grid[index - rowSize] += 0b0100;
             grid[index] += 0b0001;
         }
-        if (!(index % rowSize == rowSize - 1) && grid[index + 1] > -1) {
+        if (!(index % rowSize == rowSize - 1) && grid[index + 1] > - 1) {
             grid[index + 1] += 0b1000;
             grid[index] += 0b0010;
+        }
+    } else {
+        grid[index] = -1;
+        if (!(index >= grid.length - rowSize) && grid[index + rowSize] > - 1) {
+            grid[index + rowSize] -= 0b0001;
+        }
+        if (!(index % rowSize == 0) && grid[index - 1] > - 1) {
+            grid[index - 1] -= 0b0010;
+        }
+        if (!(index < rowSize) && grid[index - rowSize] > - 1) {
+            grid[index - rowSize] -= 0b0100;
+        }
+        if (!(index % rowSize == rowSize - 1) && grid[index + 1] > - 1) {
+            grid[index + 1] -= 0b1000;
         }
     }
 }
